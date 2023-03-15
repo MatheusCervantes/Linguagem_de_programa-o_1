@@ -1,0 +1,15 @@
+create table cliente
+(
+	id_cli SERIAL,
+	nome_cli CHARACTER VARYING(50),
+	logradouro_cli CHARACTER VARYING(50),
+	numero_cli INTEGER,
+	bairro_cli character VARYING(30),
+	cidade_cli CHARACTER VARYING(30),
+	estado_cli CHARACTER VARYING(2),
+	cep_cli CHARACTER VARYING(9),
+	cpf_cli CHARACTER VARYING(14),
+	rg_cli CHARACTER VARYING(15),
+	constraint cliente_pkey PRIMARY KEY (id_cli),
+	constraint cliente_cpf_key unique (cpf_cli)
+)
