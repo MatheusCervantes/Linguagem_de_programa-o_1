@@ -1,3 +1,5 @@
+nome do banco: projeto_1
+
 create table cliente
 (
 	id_cli SERIAL,
@@ -13,3 +15,5 @@ create table cliente
 	constraint cliente_pkey PRIMARY KEY (id_cli),
 	constraint cliente_cpf_key unique (cpf_cli)
 )
+
+select * from cliente

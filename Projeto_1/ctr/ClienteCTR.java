@@ -20,7 +20,7 @@ public class ClienteCTR {
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            return "Cliente NÃO Cadastrado";
+            return "Cliente NÃO Cadastrado!!!";
         }
     }
     
@@ -32,6 +32,32 @@ public class ClienteCTR {
     
     public void CloseDB() {
         ConexaoDAO.CloseDB();
+    }
+    
+    public String alterarCliente (ClienteDTO clienteDTO) {
+        try {
+            if (clienteDAO.alterarCliente(clienteDTO))
+                return "Cliente Alterado com Sucesso!!!";
+            else
+                return "Cliente NÃO Alterado!!!";
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Cliente NÃO Alterado!!!";
+        }
+    }
+    
+    public String excluirCliente (ClienteDTO clienteDTO) {
+        try {
+            if (clienteDAO.excluirCliente(clienteDTO))
+                return "Cliente Excluído com Sucesso!!!";
+            else
+                return "Cliente NÃO Excluído!!!";
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Cliente NÃO Excluído!!!";
+        }
     }
     
 }
