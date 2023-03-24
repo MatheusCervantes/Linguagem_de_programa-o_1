@@ -1,0 +1,21 @@
+nome do banco de dados: avaliacao_1
+
+create table carro
+(
+	id_car SERIAL,
+	renavam_car CHARACTER VARYING(30),
+	modelo_car CHARACTER VARYING(20),
+	chassi_car CHARACTER VARYING(20),
+	ano_car character VARYING(10),
+	placa_car CHARACTER VARYING(20),
+	cor_car CHARACTER VARYING(20),
+	proprietario_car CHARACTER VARYING(50),
+	endereco_car CHARACTER VARYING(50),
+	cidade_car CHARACTER VARYING(30),
+	estado_car CHARACTER VARYING(2),
+	bairro_car CHARACTER VARYING(20),
+	cpf_car CHARACTER VARYING(14),
+	cnh_car CHARACTER VARYING(14),
+	constraint carro_pkey PRIMARY KEY (id_car),
+	constraint carro_renavam_car_key unique (renavam_car)
+)
