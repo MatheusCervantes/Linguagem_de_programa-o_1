@@ -1,0 +1,53 @@
+Banco: avaliacao_2
+
+CREATE TABLE pessoa(
+	id_pessoa serial,
+	nome_pessoa character varying(50),
+	cpf_pessoa character varying(15),
+	rg_pessoa character varying(15),
+	logradouro_pessoa character varying(50),
+	numero_pessoa integer,
+	bairro_pessoa character varying(30),
+	cidade_pessoa character varying(30),
+	estado_pessoa character varying(2),
+	cep_pessoa character varying(9),
+	CONSTRAINT pessoa_pkey PRIMARY KEY (id_pessoa),
+    	CONSTRAINT pessoa_cpf_key UNIQUE (cpf_pessoa)
+)
+
+CREATE TABLE veterinario(
+	id_vet serial,
+	nome_vet character varying(50),
+	crmv_vet character varying(15),
+	rg_vet character varying(15),
+	logradouro_vet character varying(50),
+	numero_vet integer,
+	bairro_vet character varying(30),
+	cidade_vet character varying(30),
+	estado_vet character varying(2),
+	cep_vet character varying(9),
+	CONSTRAINT veterinario_pkey PRIMARY KEY (id_vet),
+    	CONSTRAINT veterinario_crmv_key UNIQUE (crmv_vet)
+)
+
+CREATE TABLE animal(
+	id_animal serial,
+	nome_animal character varying(50),
+	tipo_animal character varying(15),
+	dtanasc_animal date,
+	id_pessoa integer,
+	CONSTRAINT animal_pkey PRIMARY KEY (id_animal),
+    	CONSTRAINT animal_id_pessoa_fkey FOREIGN KEY (id_pessoa) REFERENCES pessoa (id_pessoa)
+)
+
+CREATE TABLE consulta (
+	id_consulta serial,
+	id_vet integer,
+	id_animal integer,
+	data_consulta date,
+	hora_consulta time,
+	descricao_consulta character varying(1000),
+	CONSTRAINT consulta_id_vet_fkey FOREIGN KEY (id_vet) REFERENCES veterinario (id_vet),
+    	CONSTRAINT consulta_id_animal_fkey FOREIGN KEY (id_animal) REFERENCES animal (id_animal),
+	CONSTRAINT consulta_pkey PRIMARY KEY (id_consulta)
+)
