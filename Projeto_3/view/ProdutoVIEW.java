@@ -10,34 +10,27 @@ import br.com.projeto_3.dto.ProdutoDTO;
 import br.com.projeto_3.ctr.ProdutoCTR;
 
 public class ProdutoVIEW extends javax.swing.JInternalFrame {
-       
-    FornecedorDTO fornecedorDTO = new FornecedorDTO(); //Cria um objeto fornecedorDTO
-    FornecedorCTR fornecedorCTR = new FornecedorCTR(); //Cria um objeto fornecedorCTR
-    ProdutoDTO produtoDTO = new ProdutoDTO(); //Cria um objeto produtoDTO
-    ProdutoCTR produtoCTR = new ProdutoCTR(); //Cria um objeto produtoCTR
-    
-    int gravar_alterar; //Variavel usada para saber se esta alterando ou incluindo
-    
-    
-    ResultSet rs; //Variavel usada para preenchimeto da tabela e dos campos
-    DefaultTableModel modelo_jtl_consultar_produto; //Variavel para guardar o modelo da tabela
-    DefaultTableModel modelo_jtl_consultar_fornecedor; //Variavel para guardar o modelo da tabela
 
-    /**
-     * Creates new form ProdutoVIEW
-     */
+    FornecedorDTO fornecedorDTO = new FornecedorDTO();
+    FornecedorCTR fornecedorCTR = new FornecedorCTR();
+    ProdutoDTO produtoDTO = new ProdutoDTO();
+    ProdutoCTR produtoCTR = new ProdutoCTR();
+
+    int gravar_alterar;
+
+    ResultSet rs;
+    DefaultTableModel modelo_jtl_consultar_produto;
+    DefaultTableModel modelo_jtl_consultar_fornecedor;
+
     public ProdutoVIEW() {
         initComponents();
-        
-        //Chama todos os métodos liberaCampos
         liberaCampos(false);
-        //Chama o método liberaBotoes
         liberaBotoes(true, false, false, false, true);
         modelo_jtl_consultar_produto = (DefaultTableModel) jtl_consultar_produto.getModel();
         modelo_jtl_consultar_fornecedor = (DefaultTableModel) jtl_consultar_fornecedor.getModel();
     }
 
-       @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -342,36 +335,33 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(gravar_alterar == 1){
+        if (gravar_alterar == 1) {
             gravar();
             gravar_alterar = 0;
-        }
-        else{
-            if(gravar_alterar == 2){
+        } else {
+            if (gravar_alterar == 2) {
                 alterar();
                 gravar_alterar = 0;
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
             }
         }
-          
+
         limpaCampos();
         liberaCampos(false);
         liberaBotoes(true, false, false, false, true);
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProdutoActionPerformed
         preencheTabelaProduto(pesquisa_nome_produto.getText());
-        
+
     }//GEN-LAST:event_btnPesquisarProdutoActionPerformed
 
     private void jtl_consultar_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_produtoMouseClicked
-        //Pega o id do produto selecionado e chama preencheCampos
         preencheCamposProduto(Integer.parseInt(String.valueOf(
                 jtl_consultar_produto.getValueAt(
-                jtl_consultar_produto.getSelectedRow(), 0))));
+                        jtl_consultar_produto.getSelectedRow(), 0))));
         liberaBotoes(false, true, true, true, true);
     }//GEN-LAST:event_jtl_consultar_produtoMouseClicked
 
@@ -388,7 +378,7 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
         liberaCampos(false);
         modelo_jtl_consultar_produto.setNumRows(0);
         liberaBotoes(true, false, false, false, true);
-        gravar_alterar=0;
+        gravar_alterar = 0;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -396,29 +386,19 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnPesquisarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarFornecedorActionPerformed
-         preencheTabelaFornecedor(pesquisa_nome_fornecedor.getText());
+        preencheTabelaFornecedor(pesquisa_nome_fornecedor.getText());
     }//GEN-LAST:event_btnPesquisarFornecedorActionPerformed
 
     private void p_custo_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_custo_prodActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_p_custo_prodActionPerformed
 
-
-    /**
-     * Método para centralizar o internalFrame.
-     */
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
-    }//Fecha método setPosicao()
-    
-    
-    
-    /**
-     * Método utilizado para gravar os dados do produto.
-     */
-    private void gravar(){
-        try{           
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    private void gravar() {
+        try {
             produtoDTO.setNome_prod(nome_prod.getText());
             produtoDTO.setDesc_prod(desc_prod.getText());
             produtoDTO.setCod_bar_prod(cod_bar_prod.getText());
@@ -426,23 +406,18 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
             produtoDTO.setP_venda_prod(Double.parseDouble(p_venda_prod.getText()));
             fornecedorDTO.setId_for(Integer.parseInt(String.valueOf(
                     jtl_consultar_fornecedor.getValueAt(
-                    jtl_consultar_fornecedor.getSelectedRow(), 0))));
+                            jtl_consultar_fornecedor.getSelectedRow(), 0))));
 
             JOptionPane.showMessageDialog(null,
                     produtoCTR.inserirProduto(produtoDTO, fornecedorDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Gravar" + e.getMessage());
         }
-    }//Fecha método gravar()
-    
-    
-    /**
-     * Método utilizado para alterar os dados do produto.
-     */
-    private void alterar(){
-        try{
+    }
+
+    private void alterar() {
+        try {
             produtoDTO.setNome_prod(nome_prod.getText());
             produtoDTO.setDesc_prod(desc_prod.getText());
             produtoDTO.setCod_bar_prod(cod_bar_prod.getText());
@@ -450,37 +425,26 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
             produtoDTO.setP_venda_prod(Double.parseDouble(p_venda_prod.getText()));
             fornecedorDTO.setId_for(Integer.parseInt(String.valueOf(
                     jtl_consultar_fornecedor.getValueAt(
-                    jtl_consultar_fornecedor.getSelectedRow(), 0))));
-            
+                            jtl_consultar_fornecedor.getSelectedRow(), 0))));
+
             JOptionPane.showMessageDialog(null,
                     produtoCTR.alterarProduto(produtoDTO, fornecedorDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Alterar" + e.getMessage());
         }
-    }//Fecha método alterar()
-    
-    
-    /**
-     * Método utilizado para excluir os dados do produto.
-     */
-    private void excluir(){
-       if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Produto?","Aviso", 
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+    }
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Produto?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null,
                     produtoCTR.excluirProduto(produtoDTO)
             );
-       }
-    }//Fecha método excluir()
-    
-    
-    
-    /**
-     * Método utilizado para liberar/bloquear os campos da tela.
-     * @param a, boolean com true(libera) false(bloqueia).
-     */
-    private void liberaCampos(boolean a){
+        }
+    }
+
+    private void liberaCampos(boolean a) {
         nome_prod.setEnabled(a);
         desc_prod.setEnabled(a);
         cod_bar_prod.setEnabled(a);
@@ -489,30 +453,17 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
         pesquisa_nome_fornecedor.setEnabled(a);
         btnPesquisarFornecedor.setEnabled(a);
         jtl_consultar_fornecedor.setEnabled(a);
-    }//Fecha método liberaCampos(boolean a)
-    
-    
-    /**
-     * Método utilizado para liberar os botões da tela.
-     * @param a, boolean com true(libera) false(bloqueia) para o btnNovo.
-     * @param b, boolean com true(libera) false(bloqueia) para o btnSalvar.
-     * @param c, boolean com true(libera) false(bloqueia) para o btnCancelar.
-     * @param d, boolean com true(libera) false(bloqueia) para o btnExcluir.
-     * @param e, boolean com true(libera) false(bloqueia) para o btnSair.
-     */
-    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e){
+    }
+
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
         btnNovo.setEnabled(a);
         btnSalvar.setEnabled(b);
         btnCancelar.setEnabled(c);
         btnExcluir.setEnabled(d);
         btnSair.setEnabled(e);
-    }//Fecha método liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e)
-    
-    
-    /**
-     * Método utilizado para limpar os campos da tela.
-     */
-    private void limpaCampos(){
+    }
+
+    private void limpaCampos() {
         nome_prod.setText("");
         desc_prod.setText("");
         cod_bar_prod.setText("");
@@ -520,98 +471,69 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
         p_venda_prod.setText("");
         pesquisa_nome_fornecedor.setText("");
         modelo_jtl_consultar_fornecedor.setNumRows(0);
-    }//Fecha método limpaCampos()
-    
-    
-    /**
-     * Método utilizado para preencher/contruir a Jtable.
-     * @param nome_prod, String com o nome do produto
-     */
-    private void preencheTabelaProduto(String nome_prod){
-        try{
-            //Limpa todas as linhas
+    }
+
+    private void preencheTabelaProduto(String nome_prod) {
+        try {
             modelo_jtl_consultar_produto.setNumRows(0);
-            //Enquanto tiver linhas - faça
             produtoDTO.setNome_prod(nome_prod);
-            rs = produtoCTR.consultarProduto(produtoDTO, 1); //1 = é a pesquisa por nome na classe DAO
-            while(rs.next()){
+            rs = produtoCTR.consultarProduto(produtoDTO, 1);
+            while (rs.next()) {
                 modelo_jtl_consultar_produto.addRow(new Object[]{
-                  rs.getString("id_prod"),
-                  rs.getString("nome_prod"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        } 
-        finally{
+                    rs.getString("id_prod"),
+                    rs.getString("nome_prod"),});
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             produtoCTR.CloseDB();
         }
-    }//Fecha método preencheTabelaProduto(String nome_prod)
-    
-    /**
-     * Método utilizado para preencher os campos da tela com 
-     * valores do produto.
-     * @param id_prod, int com o id do produto.
-     */
-    private void preencheCamposProduto(int id_prod){
-        try{
+    }
+
+    private void preencheCamposProduto(int id_prod) {
+        try {
             produtoDTO.setId_prod(id_prod);
-            rs = produtoCTR.consultarProduto(produtoDTO, 2); //2 = é a pesquisa no id na classe DAO
-            if(rs.next()){
+            rs = produtoCTR.consultarProduto(produtoDTO, 2);
+            if (rs.next()) {
                 limpaCampos();
-                
+
                 nome_prod.setText(rs.getString("nome_prod"));
                 desc_prod.setText(rs.getString("desc_prod"));
                 cod_bar_prod.setText(rs.getString("cod_bar_prod"));
                 p_custo_prod.setText(rs.getString("p_custo_prod"));
                 p_venda_prod.setText(rs.getString("p_venda_prod"));
-               
-                /////Colocando os dados do fornecedor
+
                 modelo_jtl_consultar_fornecedor.setNumRows(0);
                 modelo_jtl_consultar_fornecedor.addRow(new Object[]{rs.getInt("id_for"), rs.getString("nome_for"),});
                 jtl_consultar_fornecedor.setRowSelectionInterval(0, 0);
-                
+
                 gravar_alterar = 2;
                 liberaCampos(true);
-            }//fecha if(rs.next)
-        }//fecha try
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        }  
-        finally{
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             produtoCTR.CloseDB();
         }
-    }//Fecha método preencheCamposProduto(int id_for)
-    
-    
-    /**
-     * Método utilizado para preencher/contruir a Jtable.
-     * @param nome_for, String com o nome do fornecedor
-     */
-    private void preencheTabelaFornecedor(String nome_for){
-        try{
-            //Limpa todas as linhas
-            modelo_jtl_consultar_fornecedor.setNumRows(0);
-            //Enquanto tiver linhas - faça
-            fornecedorDTO.setNome_for(nome_for);
-            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 1); //1 = é a pesquisa por nome na classe DAO
-            while(rs.next()){
-                modelo_jtl_consultar_fornecedor.addRow(new Object[]{
-                  rs.getString("id_for"),
-                  rs.getString("nome_for"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        } 
-        finally{
-            produtoCTR.CloseDB();
-        }
-    }//Fecha método preencheTabelaFornecedor(String nome_for)
+    }
 
-    
+    private void preencheTabelaFornecedor(String nome_for) {
+        try {
+            modelo_jtl_consultar_fornecedor.setNumRows(0);
+            fornecedorDTO.setNome_for(nome_for);
+            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 1);
+            while (rs.next()) {
+                modelo_jtl_consultar_fornecedor.addRow(new Object[]{
+                    rs.getString("id_for"),
+                    rs.getString("nome_for"),});
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
+            produtoCTR.CloseDB();
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

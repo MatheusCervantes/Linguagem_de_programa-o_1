@@ -138,60 +138,42 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         abreVendaVIEW();
     }//GEN-LAST:event_itemMenuVendaActionPerformed
 
-
-    private void sair(){
-        Object[] options = { "Sair", "Cancelar" };
-        if(JOptionPane.showOptionDialog(null, "Deseja Sair do Sistema", "Informação", 
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0){
+    private void sair() {
+        Object[] options = {"Sair", "Cancelar"};
+        if (JOptionPane.showOptionDialog(null, "Deseja Sair do Sistema", "Informação",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0) {
             System.exit(0);
-        } 
-    } 
-    
-    
-    /**
-     * Método para abrir a classe ClienteVIEW.
-     */
-    private void abreClienteVIEW(){
+        }
+    }
+
+    private void abreClienteVIEW() {
         ClienteVIEW clienteVIEW = new ClienteVIEW();
         this.desktopPane.add(clienteVIEW);
-        clienteVIEW.setVisible(true); 
+        clienteVIEW.setVisible(true);
         clienteVIEW.setPosicao();
     }
-    
-    
-    /**
-     * Método para abrir a classe FornecedorVIEW.
-     */
-    private void abreFornecedorVIEW(){
+
+    private void abreFornecedorVIEW() {
         FornecedorVIEW fornecedorVIEW = new FornecedorVIEW();
         this.desktopPane.add(fornecedorVIEW);
-        fornecedorVIEW.setVisible(true); 
+        fornecedorVIEW.setVisible(true);
         fornecedorVIEW.setPosicao();
     }
-    
-    
-    /**
-     * Método para abrir a classe ProdutoVIEW.
-     */
-    private void abreProdutoVIEW(){
+
+    private void abreProdutoVIEW() {
         ProdutoVIEW produtoVIEW = new ProdutoVIEW();
         this.desktopPane.add(produtoVIEW);
-        produtoVIEW.setVisible(true); 
+        produtoVIEW.setVisible(true);
         produtoVIEW.setPosicao();
     }
-    
+
     private void abreVendaVIEW() {
         VendaVIEW vendaVIEW = new VendaVIEW();
         this.desktopPane.add(vendaVIEW);
         vendaVIEW.setVisible(true);
         vendaVIEW.setPosicao();
     }
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

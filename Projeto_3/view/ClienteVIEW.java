@@ -8,30 +8,23 @@ import br.com.projeto_3.dto.ClienteDTO;
 import br.com.projeto_3.ctr.ClienteCTR;
 
 public class ClienteVIEW extends javax.swing.JInternalFrame {
-    
-    ClienteDTO clienteDTO = new ClienteDTO(); //Cria um objeto clienteDTO
-    ClienteCTR clienteCTR = new ClienteCTR(); //Cria um objeto clienteCTR
-    
-    int gravar_alterar; //Variavel usada para saber se esta alterando ou incluindo
-    
-    
-    ResultSet rs; //Variavel usada para preenchimeto da tabela e dos campos
-    DefaultTableModel modelo_jtl_consultar_cliente; //Variavel para guardar o modelo da tabela
 
-    /**
-     * Creates new form ClienteVIEW
-     */
+    ClienteDTO clienteDTO = new ClienteDTO();
+    ClienteCTR clienteCTR = new ClienteCTR();
+
+    int gravar_alterar;
+
+    ResultSet rs;
+    DefaultTableModel modelo_jtl_consultar_cliente;
+
     public ClienteVIEW() {
         initComponents();
-        
-        //Chama todos os métodos liberaCampos
         liberaCampos(false);
-        //Chama o método liberaBotoes
         liberaBotoes(true, false, false, false, true);
         modelo_jtl_consultar_cliente = (DefaultTableModel) jtl_consultar_cliente.getModel();
     }
 
-       @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -362,35 +355,32 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(gravar_alterar == 1){
+        if (gravar_alterar == 1) {
             gravar();
             gravar_alterar = 0;
-        }
-        else{
-            if(gravar_alterar == 2){
+        } else {
+            if (gravar_alterar == 2) {
                 alterar();
                 gravar_alterar = 0;
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
             }
         }
-          
+
         limpaCampos();
         liberaCampos(false);
         liberaBotoes(true, false, false, false, true);
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        preencheTabela(pesquisa_nome_cli.getText());    
+        preencheTabela(pesquisa_nome_cli.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_clienteMouseClicked
-        //Pega o id do cliente selecionado e chama preencheCampos
         preencheCampos(Integer.parseInt(String.valueOf(
                 jtl_consultar_cliente.getValueAt(
-                jtl_consultar_cliente.getSelectedRow(), 0))));
+                        jtl_consultar_cliente.getSelectedRow(), 0))));
         liberaBotoes(false, true, true, true, true);
     }//GEN-LAST:event_jtl_consultar_clienteMouseClicked
 
@@ -407,29 +397,20 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
         liberaCampos(false);
         modelo_jtl_consultar_cliente.setNumRows(0);
         liberaBotoes(true, false, false, false, true);
-        gravar_alterar=0;
+        gravar_alterar = 0;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-
-    /**
-     * Método para centralizar o internalFrame.
-     */
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
-    }//Fecha método setPosicao()
-    
-    
-    
-    /**
-     * Método utilizado para gravar os dados do cliente.
-     */
-    private void gravar(){
-        try{
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    private void gravar() {
+        try {
             clienteDTO.setNome_cli(nome_cli.getText());
             clienteDTO.setLogradouro_cli(logradouro_cli.getText());
             clienteDTO.setNumero_cli(Integer.parseInt(numero_cli.getText()));
@@ -439,22 +420,17 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
             clienteDTO.setCep_cli(cep_cli.getText());
             clienteDTO.setCpf_cli(cpf_cli.getText());
             clienteDTO.setRg_cli(rg_cli.getText());
-            
+
             JOptionPane.showMessageDialog(null,
                     clienteCTR.inserirCliente(clienteDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Gravar" + e.getMessage());
         }
-    }//Fecha método gravar()
-    
-    
-    /**
-     * Método utilizado para alterar os dados do cliente.
-     */
-    private void alterar(){
-        try{
+    }
+
+    private void alterar() {
+        try {
             clienteDTO.setNome_cli(nome_cli.getText());
             clienteDTO.setLogradouro_cli(logradouro_cli.getText());
             clienteDTO.setNumero_cli(Integer.parseInt(numero_cli.getText()));
@@ -464,36 +440,25 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
             clienteDTO.setCep_cli(cep_cli.getText());
             clienteDTO.setCpf_cli(cpf_cli.getText());
             clienteDTO.setRg_cli(rg_cli.getText());
-            
+
             JOptionPane.showMessageDialog(null,
                     clienteCTR.alterarCliente(clienteDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Alterar" + e.getMessage());
         }
-    }//Fecha método alterar()
-    
-    
-    /**
-     * Método utilizado para excluir os dados do cliente.
-     */
-    private void excluir(){
-       if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Cliente?","Aviso", 
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+    }
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Cliente?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null,
                     clienteCTR.excluirCliente(clienteDTO)
             );
-       }
-    }//Fecha método excluir()
-    
-    
-    
-    /**
-     * Método utilizado para liberar/bloquear os campos da tela.
-     * @param a, boolean com true(libera) false(bloqueia).
-     */
-    private void liberaCampos(boolean a){
+        }
+    }
+
+    private void liberaCampos(boolean a) {
         nome_cli.setEnabled(a);
         logradouro_cli.setEnabled(a);
         numero_cli.setEnabled(a);
@@ -503,30 +468,17 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
         cep_cli.setEnabled(a);
         cpf_cli.setEnabled(a);
         rg_cli.setEnabled(a);
-    }//Fecha método liberaCampos(boolean a)
-    
-    
-    /**
-     * Método utilizado para liberar os botões da tela.
-     * @param a, boolean com true(libera) false(bloqueia) para o btnNovo.
-     * @param b, boolean com true(libera) false(bloqueia) para o btnSalvar.
-     * @param c, boolean com true(libera) false(bloqueia) para o btnCancelar.
-     * @param d, boolean com true(libera) false(bloqueia) para o btnExcluir.
-     * @param e, boolean com true(libera) false(bloqueia) para o btnSair.
-     */
-    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e){
+    }
+
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
         btnNovo.setEnabled(a);
         btnSalvar.setEnabled(b);
         btnCancelar.setEnabled(c);
         btnExcluir.setEnabled(d);
         btnSair.setEnabled(e);
-    }//Fecha método liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e)
-    
-    
-    /**
-     * Método utilizado para limpar os campos da tela.
-     */
-    private void limpaCampos(){
+    }
+
+    private void limpaCampos() {
         nome_cli.setText("");
         logradouro_cli.setText("");
         numero_cli.setText("");
@@ -535,47 +487,32 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
         cep_cli.setText("");
         cpf_cli.setText("");
         rg_cli.setText("");
-    }//Fecha método limpaCampos()
-    
-    
-    /**
-     * Método utilizado para preencher/contruir a Jtable.
-     * @param nome, String com o nome do cliente
-     */
-    private void preencheTabela(String nome_cli){
-        try{
-            //Limpa todas as linhas
+    }
+
+    private void preencheTabela(String nome_cli) {
+        try {
             modelo_jtl_consultar_cliente.setNumRows(0);
-            //Enquanto tiver linhas - faça
             clienteDTO.setNome_cli(nome_cli);
-            rs = clienteCTR.consultarCliente(clienteDTO, 1); //1 = é a pesquisa por nome na classe DAO
-            while(rs.next()){
+            rs = clienteCTR.consultarCliente(clienteDTO, 1);
+            while (rs.next()) {
                 modelo_jtl_consultar_cliente.addRow(new Object[]{
-                  rs.getString("id_cli"),
-                  rs.getString("nome_cli"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        } 
-        finally{
+                    rs.getString("id_cli"),
+                    rs.getString("nome_cli"),});
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             clienteCTR.CloseDB();
         }
-    }//Fecha método preencheTabela(String nome)
-    
-    /**
-     * Método utilizado para preencher os campos da tela com 
-     * valores do cliente.
-     * @param id_cli, int com o id do cliente.
-     */
-    private void preencheCampos(int id_cli){
-        try{
+    }
+
+    private void preencheCampos(int id_cli) {
+        try {
             clienteDTO.setId_cli(id_cli);
-            rs = clienteCTR.consultarCliente(clienteDTO, 2); //2 = é a pesquisa no id na classe DAO
-            if(rs.next()){
+            rs = clienteCTR.consultarCliente(clienteDTO, 2);
+            if (rs.next()) {
                 limpaCampos();
-                
+
                 nome_cli.setText(rs.getString("nome_cli"));
                 logradouro_cli.setText(rs.getString("logradouro_cli"));
                 numero_cli.setText(rs.getString("numero_cli"));
@@ -585,21 +522,17 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
                 cep_cli.setText(rs.getString("cep_cli"));
                 cpf_cli.setText(rs.getString("cpf_cli"));
                 rg_cli.setText(rs.getString("rg_cli"));
-                
+
                 gravar_alterar = 2;
                 liberaCampos(true);
-            }//fecha if(rs.next)
-        }//fecha try
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        }  
-        finally{
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             clienteCTR.CloseDB();
         }
-    }//Fecha método preencheCampos(int id_cliente)
-    
-    
-    
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairro_cli;

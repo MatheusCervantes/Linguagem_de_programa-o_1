@@ -60,7 +60,7 @@ public class AnimalVIEW extends javax.swing.JInternalFrame {
         jtl_consultar_proprietario = new javax.swing.JTable();
         dtanasc_animal = new javax.swing.JFormattedTextField();
         nome_consulta_animal = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -207,7 +207,7 @@ public class AnimalVIEW extends javax.swing.JInternalFrame {
         }
         getContentPane().add(dtanasc_animal, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 62, 150, -1));
         getContentPane().add(nome_consulta_animal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 160, -1));
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -419,7 +419,7 @@ public class AnimalVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jtl_consultar_animal;

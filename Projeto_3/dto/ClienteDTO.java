@@ -1,6 +1,6 @@
 package br.com.projeto_3.dto;
 
-public class ClienteDTO{
+public class ClienteDTO {
 
     private String nome_cli, logradouro_cli, bairro_cli, cidade_cli;
     private String estado_cli, cep_cli, cpf_cli, rg_cli;
@@ -86,6 +86,4 @@ public class ClienteDTO{
         this.numero_cli = numero_cli;
     }
 
-
-} //Fecha a classe ClienteDTO
-
+}

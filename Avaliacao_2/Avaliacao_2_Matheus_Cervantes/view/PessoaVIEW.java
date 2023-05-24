@@ -50,14 +50,14 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         estado_pessoa = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        cep_pessoa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        rg_pessoa = new javax.swing.JTextField();
-        cpf_pessoa = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnnovo = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        cpf_pessoa = new javax.swing.JFormattedTextField();
+        rg_pessoa = new javax.swing.JFormattedTextField();
+        cep_pessoa = new javax.swing.JFormattedTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -166,15 +166,12 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
 
         jLabel7.setText("CEP:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 154, -1, -1));
-        getContentPane().add(cep_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 152, 86, -1));
 
         jLabel8.setText("CPF:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 154, -1, -1));
 
         jLabel9.setText("RG:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 154, -1, -1));
-        getContentPane().add(rg_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 152, 93, -1));
-        getContentPane().add(cpf_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 152, 137, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Pessoa");
@@ -189,6 +186,32 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
         });
         getContentPane().add(btnnovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 204, -1, -1));
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+
+        try {
+            cpf_pessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cpf_pessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpf_pessoaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cpf_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 152, 137, -1));
+
+        try {
+            rg_pessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(rg_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 152, 93, -1));
+
+        try {
+            cep_pessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(cep_pessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 154, 90, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -249,6 +272,10 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
         liberaBotoes(false, true, true, false, true);
         gravar_alterar = 1;
     }//GEN-LAST:event_btnnovoActionPerformed
+
+    private void cpf_pessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_pessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpf_pessoaActionPerformed
 
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
@@ -388,9 +415,9 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnsair;
     private javax.swing.JButton btnsalvar;
-    private javax.swing.JTextField cep_pessoa;
+    private javax.swing.JFormattedTextField cep_pessoa;
     private javax.swing.JTextField cidade_pessoa;
-    private javax.swing.JTextField cpf_pessoa;
+    private javax.swing.JFormattedTextField cpf_pessoa;
     private javax.swing.JComboBox<String> estado_pessoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -411,6 +438,6 @@ public class PessoaVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nome_pessoa;
     private javax.swing.JTextField numero_pessoa;
     private javax.swing.JTextField pesquisa_nome_pessoa;
-    private javax.swing.JTextField rg_pessoa;
+    private javax.swing.JFormattedTextField rg_pessoa;
     // End of variables declaration//GEN-END:variables
 }

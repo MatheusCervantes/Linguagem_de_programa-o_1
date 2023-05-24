@@ -1,7 +1,9 @@
 package br.com.projeto_3.dto;
+
 import java.util.Date;
 
 public class VendaDTO {
+
     private int id_vend;
     private double val_vend;
     private Date dat_vend;

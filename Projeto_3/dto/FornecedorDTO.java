@@ -1,8 +1,9 @@
 package br.com.projeto_3.dto;
 
-import java.util.Date; 
+import java.util.Date;
 
 public class FornecedorDTO {
+
     private String nome_for, cnpj_for, tel_for;
     private Date data_cad_for;
     private int id_for;
@@ -46,6 +47,5 @@ public class FornecedorDTO {
     public void setId_for(int id_for) {
         this.id_for = id_for;
     }
-    
-    
+
 }

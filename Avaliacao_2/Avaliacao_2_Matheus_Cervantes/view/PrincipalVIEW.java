@@ -4,12 +4,16 @@ import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import br.com.avaliacao_2.dto.FuncionarioDTO;
 
 public class PrincipalVIEW extends javax.swing.JFrame {
 
-    public PrincipalVIEW() {
+    public PrincipalVIEW(FuncionarioDTO funcionarioDTO) {
         initComponents();
         this.setLocationRelativeTo(null);
+        if(funcionarioDTO.getTipo_fun().equalsIgnoreCase("COMUM")) {
+            itemMenuFuncionario.setVisible(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +32,9 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         itemMenuPessoa = new javax.swing.JMenuItem();
         itemMenuAnimal = new javax.swing.JMenuItem();
         itemMenuVeterinario = new javax.swing.JMenuItem();
+        itemMenuFuncionario = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
+        menuDeslogar = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +73,14 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         });
         helpMenu.add(itemMenuVeterinario);
 
+        itemMenuFuncionario.setText("Funcionário");
+        itemMenuFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuFuncionarioActionPerformed(evt);
+            }
+        });
+        helpMenu.add(itemMenuFuncionario);
+
         menuBar.add(helpMenu);
 
         menuConsulta.setText("Consulta");
@@ -81,6 +95,14 @@ public class PrincipalVIEW extends javax.swing.JFrame {
             }
         });
         menuBar.add(menuConsulta);
+
+        menuDeslogar.setText("Deslogar");
+        menuDeslogar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuDeslogarMouseClicked(evt);
+            }
+        });
+        menuBar.add(menuDeslogar);
 
         menuSair.setText("Sair");
         menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,37 +156,28 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         abreConsultaVIEW();
     }//GEN-LAST:event_menuConsultaMouseClicked
 
-    public static void main(String args[]) {
+    private void itemMenuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFuncionarioActionPerformed
+        abreFuncionarioVIEW();
+    }//GEN-LAST:event_itemMenuFuncionarioActionPerformed
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrincipalVIEW().setVisible(true);
-            }
-        });
-    }
-    
+    private void menuDeslogarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDeslogarMouseClicked
+        deslogar();
+    }//GEN-LAST:event_menuDeslogarMouseClicked
+  
     private void sair(){
         Object[] options = { "Sair", "Cancelar" };
         if(JOptionPane.showOptionDialog(null, "Deseja Sair do Sistema", "Informação", 
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0){
             System.exit(0);
+        } 
+    } 
+    
+    private void deslogar(){
+        Object[] options = { "Deslogar", "Cancelar" };
+        if(JOptionPane.showOptionDialog(null, "Deseja Deslogar do Sistema", "Informação", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0){
+            this.dispose();
+            abreLoginVIEW();
         } 
     } 
     
@@ -195,15 +208,55 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         consultaVIEW.setVisible(true);
         consultaVIEW.setPosicao();
     }
+    
+    private void abreFuncionarioVIEW(){
+        FuncionarioVIEW funcionarioVIEW = new FuncionarioVIEW();
+        this.desktopPane.add(funcionarioVIEW);
+        funcionarioVIEW.setVisible(true);
+        funcionarioVIEW.setPosicao();
+    }
+    
+    private void abreLoginVIEW(){
+        LoginVIEW loginVIEW = new LoginVIEW();
+        loginVIEW.setVisible(true);
+    }
+    
+    /*public static void main(String args[]) {
+
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PrincipalVIEW().setVisible(true);
+            }
+        });
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem itemMenuAnimal;
+    private javax.swing.JMenuItem itemMenuFuncionario;
     private javax.swing.JMenuItem itemMenuPessoa;
     private javax.swing.JMenuItem itemMenuVeterinario;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuConsulta;
+    private javax.swing.JMenu menuDeslogar;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 

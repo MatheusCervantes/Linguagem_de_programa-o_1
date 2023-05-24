@@ -1,4 +1,5 @@
 package br.com.projeto_3.view;
+
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -12,108 +13,104 @@ import br.com.projeto_3.ctr.ClienteCTR;
 import java.util.Date;
 
 public class VendaVIEW extends javax.swing.JInternalFrame {
+
     VendaCTR vendaCTR = new VendaCTR();
     VendaDTO vendaDTO = new VendaDTO();
     ProdutoCTR produtoCTR = new ProdutoCTR();
     ProdutoDTO produtoDTO = new ProdutoDTO();
     ClienteDTO clienteDTO = new ClienteDTO();
     ClienteCTR clienteCTR = new ClienteCTR();
-    
+
     ResultSet rs;
     DefaultTableModel modelo_jtl_consultar_cli;
     DefaultTableModel modelo_jtl_consultar_pro;
     DefaultTableModel modelo_jtl_consultar_pro_selecionado;
-    
+
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     public void gravar() {
         vendaDTO.setDat_vend(new Date());
         vendaDTO.setVal_vend(Double.parseDouble(TotalVenda.getText()));
         clienteDTO.setId_cli(Integer.parseInt(String.valueOf(jtl_consultar_cli.getValueAt(jtl_consultar_cli.getSelectedRow(), 0))));
-    
+
         JOptionPane.showMessageDialog(null, vendaCTR.inserirVenda(vendaDTO, clienteDTO, jtl_consultar_pro_selecionado));
     }
-    
-    private void preencheTabelaCliente (String nome_cliente) {
+
+    private void preencheTabelaCliente(String nome_cliente) {
         try {
             modelo_jtl_consultar_cli.setNumRows(0);
             clienteDTO.setNome_cli(nome_cliente);
             rs = clienteCTR.consultarCliente(clienteDTO, 1);
-            while(rs.next()) {
-                modelo_jtl_consultar_cli.addRow(new Object[] {
+            while (rs.next()) {
+                modelo_jtl_consultar_cli.addRow(new Object[]{
                     rs.getString("id_cli"),
                     rs.getString("nome_cli")
                 });
             }
-        }
-        catch (Exception erTab) {
-            System.out.println("Erro SQL: " +erTab);
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
         }
     }
-    
-    private void preencheTabelaProduto (String nome_prod) {
-        try{
+
+    private void preencheTabelaProduto(String nome_prod) {
+        try {
             modelo_jtl_consultar_pro.setNumRows(0);
             produtoDTO.setNome_prod(nome_prod);
             rs = produtoCTR.consultarProduto(produtoDTO, 1);
-            while(rs.next()) {
-                modelo_jtl_consultar_pro.addRow(new Object[] {
+            while (rs.next()) {
+                modelo_jtl_consultar_pro.addRow(new Object[]{
                     rs.getString("id_prod"),
                     rs.getString("nome_prod"),
                     rs.getString("p_venda_prod")
                 });
             }
-        }
-        catch (Exception erTab) {
-            System.out.println("Erro SQL: " +erTab);
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
         }
     }
-    
-    private void adicionaProdutoSelecionado (int id_prod, String nome_prod, double p_venda_prod) {
+
+    private void adicionaProdutoSelecionado(int id_prod, String nome_prod, double p_venda_prod) {
         try {
-            modelo_jtl_consultar_pro_selecionado.addRow(new Object[] {
+            modelo_jtl_consultar_pro_selecionado.addRow(new Object[]{
                 id_prod,
                 nome_prod,
                 p_venda_prod
             });
-        }
-        catch (Exception erTab) {
-            System.out.println("Erro SQL: " +erTab);
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
         }
     }
-    
-    private void removeProdutoSelecionado (int linha_selecionada) {
+
+    private void removeProdutoSelecionado(int linha_selecionada) {
         try {
-            if(linha_selecionada >=0) {
+            if (linha_selecionada >= 0) {
                 modelo_jtl_consultar_pro_selecionado.removeRow(linha_selecionada);
                 calculaTotalVenda();
             }
-        }
-        catch (Exception erTab) {
-            System.out.println("Erro SQL: " +erTab);
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
         }
     }
-    
+
     private void calculaTotalVenda() {
         try {
             double total = 0;
-            for (int cont=0; cont<jtl_consultar_pro_selecionado.getRowCount(); cont++) {
+            for (int cont = 0; cont < jtl_consultar_pro_selecionado.getRowCount(); cont++) {
                 total += (Double.parseDouble(String.valueOf(
-                        jtl_consultar_pro_selecionado.getValueAt(cont, 2))) *
-                        Integer.parseInt(String.valueOf(
-                        jtl_consultar_pro_selecionado.getValueAt(cont, 3))));
+                        jtl_consultar_pro_selecionado.getValueAt(cont, 2)))
+                        * Integer.parseInt(String.valueOf(
+                                jtl_consultar_pro_selecionado.getValueAt(cont, 3))));
             }
             TotalVenda.setText(String.valueOf(total));
-        }
-        catch (Exception erTab) {
-            System.out.println("Erro SQL: " +erTab);
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
         }
     }
-    
-    private void liberaCampos (boolean a) {
+
+    private void liberaCampos(boolean a) {
         pesquisa_nome_cli.setEnabled(a);
         btnPesquisarCli.setEnabled(a);
         jtl_consultar_cli.setEnabled(a);
@@ -125,7 +122,7 @@ public class VendaVIEW extends javax.swing.JInternalFrame {
         jtl_consultar_pro_selecionado.setEnabled(a);
         TotalVenda.setText("0.00");
     }
-    
+
     private void limpaCampos() {
         pesquisa_nome_cli.setText("");
         modelo_jtl_consultar_cli.setNumRows(0);
@@ -133,39 +130,37 @@ public class VendaVIEW extends javax.swing.JInternalFrame {
         modelo_jtl_consultar_pro.setNumRows(0);
         modelo_jtl_consultar_pro_selecionado.setNumRows(0);
     }
-    
-    public void liberaBotoes (boolean a, boolean b, boolean c, boolean d) {
+
+    public void liberaBotoes(boolean a, boolean b, boolean c, boolean d) {
         btnNovo.setEnabled(a);
         btnSalvar.setEnabled(b);
         btnCancelar.setEnabled(c);
         btnSair.setEnabled(d);
     }
-    
+
     private boolean verificaPreenchimento() {
-        if(jtl_consultar_cli.getSelectedRowCount() <=0) {
+        if (jtl_consultar_cli.getSelectedRowCount() <= 0) {
             JOptionPane.showMessageDialog(null, "Deve ser selecionado um Cliente");
             jtl_consultar_cli.requestFocus();
             return false;
-        }
-        else {
-            int verifica =0;
-            for (int cont=0; cont<jtl_consultar_pro_selecionado.getRowCount(); cont++) {
-                if(String.valueOf(jtl_consultar_pro_selecionado.getValueAt(cont, 3)).equalsIgnoreCase("null")) {
+        } else {
+            int verifica = 0;
+            for (int cont = 0; cont < jtl_consultar_pro_selecionado.getRowCount(); cont++) {
+                if (String.valueOf(jtl_consultar_pro_selecionado.getValueAt(cont, 3)).equalsIgnoreCase("null")) {
                     verifica++;
                 }
             }
-            if(verifica >0) {
-                JOptionPane.showMessageDialog(null, 
+            if (verifica > 0) {
+                JOptionPane.showMessageDialog(null,
                         "A quantidade de cada produto vendido deve ser informado");
                 jtl_consultar_pro_selecionado.requestFocus();
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
     }
-    
+
     public VendaVIEW() {
         initComponents();
         liberaCampos(false);
@@ -523,7 +518,7 @@ public class VendaVIEW extends javax.swing.JInternalFrame {
                 String.valueOf(jtl_consultar_pro.getValueAt(jtl_consultar_pro.getSelectedRow(), 1)),
                 Double.parseDouble(String.valueOf(jtl_consultar_pro.getValueAt(
                         jtl_consultar_pro.getSelectedRow(), 2)))
-                );
+        );
     }//GEN-LAST:event_btnProAddActionPerformed
 
     private void btnProRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProRemActionPerformed

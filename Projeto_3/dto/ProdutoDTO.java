@@ -1,6 +1,7 @@
 package br.com.projeto_3.dto;
 
 public class ProdutoDTO {
+
     private String nome_prod, desc_prod, cod_bar_prod;
     private double p_custo_prod, p_venda_prod;
     private int id_prod;
@@ -53,6 +54,4 @@ public class ProdutoDTO {
         this.id_prod = id_prod;
     }
 
-    
-      
 }

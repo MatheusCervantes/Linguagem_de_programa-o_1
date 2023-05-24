@@ -1,0 +1,21 @@
+Insert into funcionario (nome_fun, cpf_fun, login_fun, senha_fun, tipo_fun) values ( 
+	'MATHEUS CERVANTES',
+	'123.456.789-01', 
+	'matheusadmin',
+	'FE100AFDC039049FBA059FABFBE056FE0057FF200FF8803E',
+	'ADMINISTRADOR'
+)
+
+Insert into funcionario (nome_fun, cpf_fun, login_fun, senha_fun, tipo_fun) values ( 
+	'MATHEUS',
+	'123.456.789-11', 
+	'matheuscomum',
+	'FE100AFDC039049FBA059FABFBE056FE0057FF200FF8803E',
+	'COMUM'
+)
+
+Login: matheusadmin
+senha: 123456
+
+Login: matheuscomum
+senha: 123456

@@ -3,8 +3,8 @@ Banco: avaliacao_2
 CREATE TABLE pessoa(
 	id_pessoa serial,
 	nome_pessoa character varying(50),
-	cpf_pessoa character varying(15),
-	rg_pessoa character varying(15),
+	cpf_pessoa character varying(14),
+	rg_pessoa character varying(12),
 	logradouro_pessoa character varying(50),
 	numero_pessoa integer,
 	bairro_pessoa character varying(30),
@@ -19,7 +19,7 @@ CREATE TABLE veterinario(
 	id_vet serial,
 	nome_vet character varying(50),
 	crmv_vet character varying(15),
-	rg_vet character varying(15),
+	rg_vet character varying(12),
 	logradouro_vet character varying(50),
 	numero_vet integer,
 	bairro_vet character varying(30),
@@ -50,4 +50,17 @@ CREATE TABLE consulta (
 	CONSTRAINT consulta_id_vet_fkey FOREIGN KEY (id_vet) REFERENCES veterinario (id_vet),
     	CONSTRAINT consulta_id_animal_fkey FOREIGN KEY (id_animal) REFERENCES animal (id_animal),
 	CONSTRAINT consulta_pkey PRIMARY KEY (id_consulta)
+)
+
+CREATE TABLE funcionario
+(
+	id_fun serial,
+	nome_fun character varying(50),
+	cpf_fun character varying(14),
+	login_fun character varying(30),
+	senha_fun character varying(50),	
+	tipo_fun character varying(13),
+	CONSTRAINT funcionario_pkey PRIMARY KEY (id_fun),
+	CONSTRAINT funcionario_cpf_key UNIQUE (cpf_fun),
+	CONSTRAINT funcionario_login_key UNIQUE (login_fun)
 )

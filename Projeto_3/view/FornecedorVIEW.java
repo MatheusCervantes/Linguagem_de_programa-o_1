@@ -9,30 +9,25 @@ import br.com.projeto_3.ctr.FornecedorCTR;
 import java.text.SimpleDateFormat;
 
 public class FornecedorVIEW extends javax.swing.JInternalFrame {
-    SimpleDateFormat data_format= new SimpleDateFormat("dd/mm/yyyy");
-    
-    FornecedorDTO fornecedorDTO = new FornecedorDTO(); //Cria um objeto fornecedorDTO
-    FornecedorCTR fornecedorCTR = new FornecedorCTR(); //Cria um objeto fornecedorCTR
-    
-    int gravar_alterar; //Variavel usada para saber se esta alterando ou incluindo
-        
-    ResultSet rs; //Variavel usada para preenchimeto da tabela e dos campos
-    DefaultTableModel modelo_jtl_consultar_fornecedor; //Variavel para guardar o modelo da tabela
 
-    /**
-     * Creates new form FornecedorVIEW
-     */
+    SimpleDateFormat data_format = new SimpleDateFormat("dd/mm/yyyy");
+
+    FornecedorDTO fornecedorDTO = new FornecedorDTO();
+    FornecedorCTR fornecedorCTR = new FornecedorCTR();
+
+    int gravar_alterar;
+
+    ResultSet rs;
+    DefaultTableModel modelo_jtl_consultar_fornecedor;
+
     public FornecedorVIEW() {
         initComponents();
-        
-        //Chama todos os métodos liberaCampos
         liberaCampos(false);
-        //Chama o método liberaBotoes
         liberaBotoes(true, false, false, false, true);
         modelo_jtl_consultar_fornecedor = (DefaultTableModel) jtl_consultar_fornecedor.getModel();
     }
 
-       @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -272,36 +267,33 @@ public class FornecedorVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(gravar_alterar == 1){
+        if (gravar_alterar == 1) {
             gravar();
             gravar_alterar = 0;
-        }
-        else{
-            if(gravar_alterar == 2){
+        } else {
+            if (gravar_alterar == 2) {
                 alterar();
                 gravar_alterar = 0;
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
             }
         }
-          
+
         limpaCampos();
         liberaCampos(false);
         liberaBotoes(true, false, false, false, true);
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         preencheTabela(pesquisa_nome.getText());
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_fornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_fornecedorMouseClicked
-        //Pega o id do fornecedor selecionado e chama preencheCampos
         preencheCampos(Integer.parseInt(String.valueOf(
                 jtl_consultar_fornecedor.getValueAt(
-                jtl_consultar_fornecedor.getSelectedRow(), 0))));
+                        jtl_consultar_fornecedor.getSelectedRow(), 0))));
         liberaBotoes(false, true, true, true, true);
     }//GEN-LAST:event_jtl_consultar_fornecedorMouseClicked
 
@@ -318,175 +310,118 @@ public class FornecedorVIEW extends javax.swing.JInternalFrame {
         liberaCampos(false);
         modelo_jtl_consultar_fornecedor.setNumRows(0);
         liberaBotoes(true, false, false, false, true);
-        gravar_alterar=0;
+        gravar_alterar = 0;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-
-    /**
-     * Método para centralizar o internalFrame.
-     */
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
-    }//Fecha método setPosicao()
-    
-    
-    
-    /**
-     * Método utilizado para gravar os dados do fornecedor.
-     */
-    private void gravar(){
-        try{
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    private void gravar() {
+        try {
             fornecedorDTO.setNome_for(nome_for.getText());
             fornecedorDTO.setCnpj_for(cnpj_for.getText());
             fornecedorDTO.setTel_for(tel_for.getText());
             fornecedorDTO.setData_cad_for(data_format.parse(data_cad_for.getText()));
-           
+
             JOptionPane.showMessageDialog(null,
                     fornecedorCTR.inserirFornecedor(fornecedorDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Gravar" + e.getMessage());
         }
-    }//Fecha método gravar()
-    
-    
-    /**
-     * Método utilizado para alterar os dados do fornecedor.
-     */
-    private void alterar(){
-        try{
+    }
+
+    private void alterar() {
+        try {
             fornecedorDTO.setNome_for(nome_for.getText());
             fornecedorDTO.setCnpj_for(cnpj_for.getText());
             fornecedorDTO.setTel_for(tel_for.getText());
             fornecedorDTO.setData_cad_for(data_format.parse(data_cad_for.getText()));
-            
+
             JOptionPane.showMessageDialog(null,
                     fornecedorCTR.alterarFornecedor(fornecedorDTO)
             );
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erro ao Alterar" + e.getMessage());
         }
-    }//Fecha método alterar()
-    
-    
-    /**
-     * Método utilizado para excluir os dados do fornecedor.
-     */
-    private void excluir(){
-       if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Fornecedor?","Aviso", 
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+    }
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Fornecedor?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null,
                     fornecedorCTR.excluirFornecedor(fornecedorDTO)
             );
-       }
-    }//Fecha método excluir()
-    
-    
-    
-    /**
-     * Método utilizado para liberar/bloquear os campos da tela.
-     * @param a, boolean com true(libera) false(bloqueia).
-     */
-    private void liberaCampos(boolean a){
+        }
+    }
+
+    private void liberaCampos(boolean a) {
         nome_for.setEnabled(a);
         cnpj_for.setEnabled(a);
         tel_for.setEnabled(a);
         data_cad_for.setEnabled(a);
-    }//Fecha método liberaCampos(boolean a)
-    
-    
-    /**
-     * Método utilizado para liberar os botões da tela.
-     * @param a, boolean com true(libera) false(bloqueia) para o btnNovo.
-     * @param b, boolean com true(libera) false(bloqueia) para o btnSalvar.
-     * @param c, boolean com true(libera) false(bloqueia) para o btnCancelar.
-     * @param d, boolean com true(libera) false(bloqueia) para o btnExcluir.
-     * @param e, boolean com true(libera) false(bloqueia) para o btnSair.
-     */
-    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e){
+    }
+
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
         btnNovo.setEnabled(a);
         btnSalvar.setEnabled(b);
         btnCancelar.setEnabled(c);
         btnExcluir.setEnabled(d);
         btnSair.setEnabled(e);
-    }//Fecha método liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e)
-    
-    
-    /**
-     * Método utilizado para limpar os campos da tela.
-     */
-    private void limpaCampos(){
+    }
+
+    private void limpaCampos() {
         nome_for.setText("");
         cnpj_for.setText("");
         tel_for.setText("");
         data_cad_for.setText("");
-    }//Fecha método limpaCampos()
-    
-    
-    /**
-     * Método utilizado para preencher/contruir a Jtable.
-     * @param nome_for, String com o nome do fornecedor
-     */
-    private void preencheTabela(String nome_for){
-        try{
-            //Limpa todas as linhas
+    }
+
+    private void preencheTabela(String nome_for) {
+        try {
             modelo_jtl_consultar_fornecedor.setNumRows(0);
-            //Enquanto tiver linhas - faça
             fornecedorDTO.setNome_for(nome_for);
-            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 1); //1 = é a pesquisa por nome na classe DAO
-            while(rs.next()){
+            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 1);
+            while (rs.next()) {
                 modelo_jtl_consultar_fornecedor.addRow(new Object[]{
-                  rs.getString("id_for"),
-                  rs.getString("nome_for"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        } 
-        finally{
+                    rs.getString("id_for"),
+                    rs.getString("nome_for"),});
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             fornecedorCTR.CloseDB();
         }
-    }//Fecha método preencheTabela(String nome_for)
-    
-    /**
-     * Método utilizado para preencher os campos da tela com 
-     * valores do fornecedor.
-     * @param id_for, int com o id do fornecedor.
-     */
-    private void preencheCampos(int id_for){
-        try{
+    }
+
+    private void preencheCampos(int id_for) {
+        try {
             fornecedorDTO.setId_for(id_for);
-            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 2); //2 = é a pesquisa no id na classe DAO
-            if(rs.next()){
+            rs = fornecedorCTR.consultarFornecedor(fornecedorDTO, 2);
+            if (rs.next()) {
                 limpaCampos();
-                
+
                 nome_for.setText(rs.getString("nome_for"));
                 cnpj_for.setText(rs.getString("cnpj_for"));
                 tel_for.setText(rs.getString("tel_for"));
                 data_cad_for.setText(rs.getString("data_cad_for"));
-                
+
                 gravar_alterar = 2;
                 liberaCampos(true);
-            }//fecha if(rs.next)
-        }//fecha try
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        }  
-        finally{
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
             fornecedorCTR.CloseDB();
         }
-    }//Fecha método preencheCampos(int id_for)
-    
-    
-    
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

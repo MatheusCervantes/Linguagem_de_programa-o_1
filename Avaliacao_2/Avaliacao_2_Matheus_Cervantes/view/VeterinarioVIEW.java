@@ -33,7 +33,6 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
         btnexcluir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        rg_vet = new javax.swing.JTextField();
         crmv_vet = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnnovo = new javax.swing.JButton();
@@ -54,13 +53,14 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         estado_vet = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        cep_vet = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnsalvar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         pesquisa_nome_vet = new javax.swing.JTextField();
+        rg_vet = new javax.swing.JFormattedTextField();
+        cep_vet = new javax.swing.JFormattedTextField();
 
         jLabel13.setText("jLabel13");
 
@@ -81,7 +81,6 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
 
         jLabel9.setText("RG:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 169, -1, -1));
-        getContentPane().add(rg_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 167, 163, -1));
         getContentPane().add(crmv_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 167, 99, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -174,7 +173,6 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
 
         jLabel7.setText("CEP:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 139, -1, -1));
-        getContentPane().add(cep_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 137, 99, -1));
 
         jLabel8.setText("CRMV:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 169, -1, -1));
@@ -201,6 +199,20 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 37, -1, -1));
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, -1));
         getContentPane().add(pesquisa_nome_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 200, -1));
+
+        try {
+            rg_vet.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(rg_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 169, 161, -1));
+
+        try {
+            cep_vet.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(cep_vet, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 139, 99, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -405,7 +417,7 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnsair;
     private javax.swing.JButton btnsalvar;
-    private javax.swing.JTextField cep_vet;
+    private javax.swing.JFormattedTextField cep_vet;
     private javax.swing.JTextField cidade_vet;
     private javax.swing.JTextField crmv_vet;
     private javax.swing.JComboBox<String> estado_vet;
@@ -430,6 +442,6 @@ public class VeterinarioVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nome_vet;
     private javax.swing.JTextField numero_vet;
     private javax.swing.JTextField pesquisa_nome_vet;
-    private javax.swing.JTextField rg_vet;
+    private javax.swing.JFormattedTextField rg_vet;
     // End of variables declaration//GEN-END:variables
 }
