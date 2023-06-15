@@ -90,7 +90,9 @@ public class ConsultaDAO {
             String comando = "";
             switch (opcao) {
                 case 1:
-                    comando = "Select c.*, v.*, a.* "
+                    comando = "Select c.*, v.*, a.*, "
+                            + "to_char(c.data_consulta, 'dd/mm/yyyy') as datconsulta, "
+                            + "to_char(c.hora_consulta, 'HH:mi:ss') as horaconsulta "
                             + "from consulta c "
                             + "join veterinario v on c.id_vet = v.id_vet "
                             + "join animal a on c.id_animal = a.id_animal "
@@ -98,7 +100,9 @@ public class ConsultaDAO {
                             + "order by v.nome_vet";
                     break;
                 case 2:
-                    comando = "Select c.*, v.*, a.* "
+                    comando = "Select c.*, v.*, a.*, "
+                            + "to_char(c.data_consulta, 'dd/mm/yyyy') as datconsulta, "
+                            + "to_char(c.hora_consulta, 'HH:mi:ss') as horaconsulta "
                             + "from consulta c "
                             + "join veterinario v on c.id_vet = v.id_vet "
                             + "join animal a on c.id_animal = a.id_animal "
@@ -115,7 +119,6 @@ public class ConsultaDAO {
                             + "join pessoa p on a.id_pessoa = p.id_pessoa "
                             + "where c.id_consulta = " + consultaDTO.getId_consulta();
                     break;
-
             }
             rs = stmt.executeQuery(comando.toUpperCase());
             return rs;

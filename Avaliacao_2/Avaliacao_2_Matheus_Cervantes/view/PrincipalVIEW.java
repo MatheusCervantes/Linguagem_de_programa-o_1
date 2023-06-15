@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import br.com.avaliacao_2.dto.FuncionarioDTO;
+import java.awt.Toolkit;
 
 public class PrincipalVIEW extends javax.swing.JFrame {
 
@@ -14,6 +15,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         if(funcionarioDTO.getTipo_fun().equalsIgnoreCase("COMUM")) {
             itemMenuFuncionario.setVisible(false);
         }
+        setIcon();
     }
 
     @SuppressWarnings("unchecked")
@@ -259,5 +261,9 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     private javax.swing.JMenu menuDeslogar;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("imagens/icone.png")));
+    }
 
 }
